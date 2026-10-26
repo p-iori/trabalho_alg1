@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "item.h"
+#include "cli.h"
 
 // Definições de estilos e cores
 #define SCREEN_RESET "\033[2J\033[H"
@@ -20,6 +21,8 @@ int main(void) {
     const char *linha_csv = 
         "(99942) Apophis,Apophis,2029,4,0.00025,30.7,19.7,930,HAZARDOUS,DANGER,0.95,5,true,4,1.2,0.34\n";
 
+
+    
     // 1. Testando item_criar (aloca e executa parse)
     printf("[1] Criando item via item_criar...\n");
     ITEM *item_original = item_criar(linha_csv);
