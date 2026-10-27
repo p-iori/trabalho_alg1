@@ -37,7 +37,7 @@ CONFIG *cli_criar(void){
 }
 
 bool cli_apagar(CONFIG **cli){
-    if(*cli == NULL) return false;
+    if(cli == NULL || *cli == NULL) return false;
 
     if((*cli)->reader) free((*cli)->reader);
     if((*cli)->input) free((*cli)->input);

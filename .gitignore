@@ -1,0 +1,25 @@
+# Executáveis da raiz e de testes
+main
+teste_item
+teste_item.exe
+trabalho
+trabalho.exe
+teste_*
+*.exe
+main
+
+# Arquivos de objetos compilados
+*.o
+*.a
+*.so
+
+# Arquivos de saída de testes gerados pelo programa
+resultado.csv
+resultado_*.csv
+q_test_tmp.txt
+
+# Arquivos do sistema e de IDEs
+.vscode/
+.idea/
+*.swp
+.DS_Store
