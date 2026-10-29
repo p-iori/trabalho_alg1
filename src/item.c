@@ -107,7 +107,7 @@ double item_get_numero(const ITEM *item, const char campo[]){
     if(strcmp(campo, "sentry_palermo_scale") == 0) return item->sentry_palermo_scale;
     if(strcmp(campo, "sentry_diameter_km") == 0) return item->sentry_diameter_km;
 
-    return 0.0;
+    return -1;
 }
 
 const char* item_get_texto(const ITEM *item, const char campo[]){
@@ -135,7 +135,7 @@ void item_print_csv(const ITEM *item, FILE *f){
         return;
     }
 
-    fprintf(f, "%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%.2f,%.2f,%.2f\n",
+    printf("%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%.2f,%.2f,%.2f\n",
             item_get_texto(item, "asteroid_designation"),
             item_get_texto(item, "asteroid_fullname"),
             (int)item_get_numero(item, "year"),
@@ -163,7 +163,7 @@ static char* item_extrair_proximo_campo(char **string_ptr){
     return custom_strsep(string_ptr, ",");
 }
 
-ITEM* item_parse_linha(ITEM* item, const char *linha_original){
+static ITEM* item_parse_linha(ITEM* item, const char *linha_original){
     if(linha_original == NULL || linha_original[0] == '\0') return NULL;
 
     // a função custom_strsep modifica a string original, então precisamos copiar ela em um ponteiro
@@ -229,16 +229,37 @@ ITEM* item_parse_linha(ITEM* item, const char *linha_original){
 
 // função para auxiliar nas operações de ordenação, principalmente
 // retorna TRUE se A for maior
-bool item_comparar(const ITEM *a, const ITEM *b, const char campo[]){
+bool item_comparar_numero(const ITEM *a, const ITEM *b, const char campo[]){
     if(a == NULL || b == NULL || campo == NULL) return false;
     double val_a = item_get_numero(a, campo);
     double val_b = item_get_numero(b, campo);
 
+    if((val_a == -1) || (val_b == -1)){
+        printf("ERRO: Pelo menos um dos valores não é um número");
+        return false;
+    }
+
     if(val_a > val_b) return true;
     if(val_a < val_b) return false;
 
-    return 0; 
+    return false; 
 
+}
+// retorna TRUE se os valores forem IGUAIS
+bool item_comparar_texto(const ITEM *a, const ITEM *b, const char campo[]){
+    if(a == NULL || b == NULL || campo == NULL) return false;
+
+    if((item_get_numero(a, campo) == -1) || (item_get_numero(b, campo) == -1)){
+        printf("ERRO: Pelo menos um dos valores não é uma string");
+        return false;
+    }
+    
+    char *val_a = item_get_texto(a, campo);
+    char *val_b = item_get_texto(b, campo);
+
+    if(strcmp(a, b) == 0) return true;
+
+    return false;
 }
 
 ITEM *item_clonar(const ITEM *item){
