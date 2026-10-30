@@ -4,14 +4,15 @@ site:
   structure:
     - type: section
       key: section-1
-      title: Home
-      path: home
-      icon: house
+      title: Introdução
+      path: introducao
+      description: ""
+      icon: user-sith
       default: true
       children:
         - type: space
           key: space-1
-          title: Home
+          title: Introdução
           path: home
           default: true
           content:
