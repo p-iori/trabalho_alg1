@@ -20,7 +20,7 @@ site:
     - type: section
       key: section-2
       title: Documentação
-      path: documentation
+      path: documentacao
       description: ""
       icon: book-blank
       children:
