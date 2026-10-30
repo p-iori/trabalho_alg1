@@ -1,3 +1,3 @@
 # Table of contents
 
-* [Gerenciador de registros](README.md)
+* [Projeto 1 - Algoritmos e Estruturas de Dados I](README.md)

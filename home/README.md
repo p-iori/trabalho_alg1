@@ -26,13 +26,19 @@ layout:
     visible: false
 ---
 
-# Gerenciador de registros
+# Projeto 1 - Algoritmos e Estruturas de Dados I
 
 Projeto desenvolvido para a disciplina SCC0202 - Algoritmos e Estruturas de Dados I no ano de 2026 por Pedro Iori Garcia e Gabriel Galli Brandini
 
 ***
 
-&#x20;Conheça as estruturas disponíveis abaixo:
+### Objetivo da documentação:
+
+Essa documentação foi desenvolvida com o objetivo de complementar a entrega do trabalho e de auxiliar na compreensão dos processos que levaram ao desenvolvimento do código, além do funcionamento do projeto em si.
+
+## Conheça o projeto:
+
+Veja as estruturas de dados disponíveis abaixo:
 
 {% tabs %}
 {% tab title="Pilha" icon="layer-group" %}
@@ -94,21 +100,19 @@ Estrutura avançada multidimensional que permite que um mesmo registro participe
 
 {% stepper %}
 {% step %}
-#### Reader
+#### Reader e CLI
 
-O reader escolhido recebe o caminho do arquivo contendo o dataset, a estrutura escolhida e a função de inserção correspondente à ela.&#x20;
+O cliente envia os argumentos e configurações escolhidas na linha de execução do programa, que é parseada pelo módulo CLI, a partir dele, o módulo reader escolhido recebe o caminho do arquivo contendo o dataset, a estrutura escolhida e a função de inserção correspondente à ela.
 
-Ele transforma cada linha do arquivo em uma estrutura do tipo ITEM e insere na estrutura escolhida utilizando a função passada
-
-Veja mais sobre o arquivo Reader:
+Ele transforma cada linha do arquivo em uma estrutura do tipo `ITEM` e insere na estrutura escolhida utilizando a função passada
 {% endstep %}
 
 {% step %}
-#### TAD ITEM
+#### TAD `ITEM`
 
-Cada linha lida pelo reader é enviada como string para a função item\_criar, que separa os valores de cada campo em parâmetros de uma estrutura especial do tipo ITEM
+Cada linha lida pelo reader é enviada como string para a função `item_criar`, que separa os valores de cada campo em parâmetros de uma estrutura especial do tipo `ITEM`
 
-Para o dataset incial, responsável pela parte 1 do trabalho, a struct ITEM possui o seguinte formato:
+Para o dataset inicial, responsável pela parte 1 do trabalho, a struct `ITEM` possui o seguinte formato:
 
 {% code expandable="true" %}
 ```c
@@ -137,24 +141,122 @@ struct item_{
 };
 ```
 {% endcode %}
-
-Veja mais sobre o TAD ITEM:
-
-
 {% endstep %}
 
 {% step %}
-#### Retorno
+### Estrutura base
 
-Após inserir cada item na estrutura, o reader retorna um inteiro que corresponde ao número de inserções realizadas
+Cada item é inserido na estrutura escolhida para servir como base. Eles podem ser armazenados diretamente em um array de tipo `ITEM` ou em estruturas `struct no_` a depender da escolha da estrutura.
+{% endstep %}
+
+{% step %}
+### TAD `CONSULTA`
+
+Juntamente com as configurações iniciais, a CLI recebe um arquivo `.txt` que contém um série de regras de filtragem e estilização que ditarão como o arquivo de saída será gerado.
+{% endstep %}
+
+{% step %}
+### Avaliação e filtragem (`consulta_avaliar_item`)
+
+A estrutura de dados base passa, então, pela função `consulta_avaliar_item` dentro do próprio arquivo do TAD `CONSULTA` . Essa função é responsável por selecionar e inserir os itens aptos dentro da estrutura de dados de retorno que foi previamente escolhida pelo usuário
+{% endstep %}
+
+{% step %}
+#### Estrutura de result
+
+A estrutura resultante é, por fim, inserida dentro de um novo arquivo .csv&#x20;
 
 ```mermaid
-graph LR
-  Arquivo --> Reader --> ITEM 
-  ITEM --> Estrutura
+flowchart TD
+    CLI_INPUT["Terminal / Linha de Comando"] --> MAIN["main.c"]
+
+    subgraph TADS ["Módulos e TADs Principais"]
+        CLI["<b>TAD CLI</b><br/><i>Parse dos Argumentos</i>"]
+        CONSULTA["<b>TAD CONSULTA</b><br/><i>Regras de Busca (.txt)</i>"]
+        READER["<b>TAD READER</b><br/><i>Ingestão do CSV</i>"]
+        ITEM["<b>TAD ITEM</b><br/><i>Abstração e Atributos</i>"]
+    end
+
+    MAIN --> CLI
+    MAIN --> CONSULTA
+    MAIN --> READER
+    MAIN --> ITEM
+
+    READER --> BASE["<b>Estrutura de BASE</b><br/><i>(ex: Lista, Pilha, Fila)</i>"]
+    ITEM -. "Instancia Itens" .-> BASE
+
+    BASE --> EVAL["<b>Avaliação / Filtragem</b><br/><i>(consulta_avaliar_item)</i>"]
+    CONSULTA -. "Aplica Regras" .-> EVAL
+    ITEM -. "Acessa Atributos" .-> EVAL
+
+    EVAL --> RESULT["<b>Estrutura de RESULT</b><br/><i>(ex: Lista Ordenada)</i>"]
+    RESULT --> OUTPUT["<b>Arquivo CSV de Saída</b><br/><i>(resultado.csv)</i>"]
+
+    %% Estilização dos Nós para o GitBook
+    classDef mainNode fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
+    classDef tadNode fill:#fff3e0,stroke:#e65100,stroke-width:1px,color:#e65100;
+    classDef structNode fill:#e8f5e9,stroke:#2e7d32,stroke-width:1px,color:#1b5e20;
+    classDef procNode fill:#f3e5f5,stroke:#7b1fa2,stroke-width:1px,color:#4a148c;
+    classDef ioNode fill:#eceff1,stroke:#37474f,stroke-width:1px,color:#263238;
+
+    class MAIN mainNode;
+    class CLI,CONSULTA,READER,ITEM tadNode;
+    class BASE,RESULT structNode;
+    class EVAL procNode;
+    class CLI_INPUT,OUTPUT ioNode;
 ```
 {% endstep %}
 {% endstepper %}
 
+A Parte 1 do projeto consiste no desenvolvimento de uma _engine_ de processamento, filtragem e cálculo de similaridade de dados astronômicos em linguagem C. O sistema foi projetado sob uma arquitetura fortemente modular e orientada a Tipos Abstratos de Dados (TADs), permitindo manipular grandes volumes de dados de asteroides (dataset _Near-Earth Objects_ da NASA) de forma eficiente e sem vazamentos de memória.
 
+### Arquivo de consulta e motor de regras
 
+O TAD `CONSULTA` feito para a parte 1 do projeto é capaz de interpretar 6 comandos de configuração no arquivo de entrada:
+
+| Comando  | Sintaxe exemplo                    | Descrição                                                                                          |
+| -------- | ---------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `FILTER` | `FILTER distance_au\|<=10.08`      | Filtro booleano rígido (`==`, `!=`, `<`, `>`, `<=`, `>=`). Itens fora do critério são descartados. |
+| `SIM`    | `SIM velocity_km_s\|15.0 10.0 1.0` | Define métrica de similaridade ponderada: `campo\|alvo tolerancia peso`.                           |
+| `ACCEPT` | `ACCEPT 0.60`                      | Nota/limiar mínimo de similaridade para aceitação do item (entre `0.0` e `1.0`).                   |
+| `ORDER`  | `ORDER similarity\|DESC`           | Define o campo de ordenação dos resultados e a direção (`ASC` ou `DESC`).                          |
+| `GROUP`  | `GROUP threat_category\|year`      | Parâmetros de agrupamento multinível para estruturas avançadas.                                    |
+| `CROSS`  | `CROSS threat_category year`       | Parâmetros para visualizações cruzadas/matriOrder.                                                 |
+
+#### Cálculo da Similaridade Ponderada
+
+Quando regras `SIM` são especificadas, a pontuação ($$S$$) de um item é calculada pela média ponderada das similaridades locais:
+
+<p align="center"><span class="math">s_{local} = \max\left(0, 1 - \frac{\vert{}valor_{item} - alvo\vert{}}{tolerancia}\right)</span></p>
+
+<p align="center"><span class="math">S_{total} = \frac{\sum (s_{local} \times peso)}{\sum peso}</span></p>
+
+### Destaques da Engenharia do Projeto
+
+* Zero Memory Leak: Gerenciamento rigoroso de memória dinâmica em C (`malloc`, `calloc`, `realloc`, `free`), testado e validado via Valgrind.
+* Ponteiros Opaque e Encapsulamento: Estruturas internas ocultas nos arquivos `.c`, expondo apenas ponteiros opacos nos cabeçalhos (`.h`).
+* Desacoplamento via Callbacks: O leitor de dados e as estruturas de dados não possuem dependência direta entre si, comunicando-se via `void*` e ponteiros de função.
+* Resiliência de Parser: Tratamento defensivo de strings para lidar com variações de quebra de linha de diferentes sistemas operacionais (`\r\n` vs `\n`).
+
+### Exemplo de execução:
+
+Compilação do projeto com flags estritas:
+
+```bash
+gcc -Wall -Wextra -pedantic -Iinclude src/*.c -o trabalho -lm
+```
+
+Execução do pipeline completo:
+
+```bash
+./trabalho --reader nasa \
+          --input dados/asteroids.csv \
+          --base lista_enc \
+          --result lista_ord \
+          --query consultas/q1.txt \
+          --output resultado.csv \
+          --top-k 100 \
+          --limit 10000
+```
+
+Todos os arquivos do projeto estão devidamente documentados na [Documentação](https://app.gitbook.com/o/PsT8znIAyEpCRNzCjU0B/s/iunjpYXuo9JOS4Sy0saW/ "mention")
