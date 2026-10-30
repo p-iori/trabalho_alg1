@@ -32,19 +32,6 @@ site:
           content:
             directory: ./documentation
     - type: section
-      key: section-4
-      title: Changelog
-      path: changelog
-      icon: clock-rotate-left
-      children:
-        - type: space
-          key: space-4
-          title: Changelog
-          path: changelog
-          default: true
-          content:
-            directory: null
-    - type: section
       key: section-5
       title: Help Center
       path: help-center
