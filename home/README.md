@@ -1,6 +1,9 @@
 ---
-description: Welcome to your team’s developer platform
-icon: house
+description: >-
+  Programa feito em C que permite carregar, buscar e organizar registros a
+  partir de arquivos .csv utilizando diversas estruturas de dados organizadas em
+  TADs independentes
+icon: user-sith
 layout:
   width: wide
   title:
@@ -23,256 +26,135 @@ layout:
     visible: false
 ---
 
-# Developer Platform
+# Gerenciador de registros
 
-<button type="button" class="button primary" data-action="ask" data-icon="gitbook-assistant">Ask a question...</button>
+Projeto desenvolvido para a disciplina SCC0202 - Algoritmos e Estruturas de Dados I no ano de 2026 por Pedro Iori Garcia e Gabriel Galli Brandini
 
-<button type="button" class="button secondary" data-action="ask" data-query="How do I get started?" data-icon="rocket-launch">Get started</button><button type="button" class="button secondary" data-action="ask" data-query="How do I authenticate with the developer platform?" data-icon="key">Authenticate</button><button type="button" class="button secondary" data-action="ask" data-query="How do I integrate with my stack?" data-icon="code">Integrate</button><button type="button" class="button secondary" data-action="ask" data-query="How do I contribute?" data-icon="code-pull-request">Contribute</button>
+***
 
-&#x20;
-
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><h4><i class="fa-leaf" style="color:$primary;">:leaf:</i></h4></td><td><strong>No code</strong></td><td>Get started with the developer platform in 5 minutes.</td><td><a href="https://app.gitbook.com/s/iunjpYXuo9JOS4Sy0saW/getting-started/quickstart">Quickstart</a></td><td><a href=".gitbook/assets/no-code.jpg">no-code.jpg</a></td></tr><tr><td><h4><i class="fa-server" style="color:$primary;">:server:</i></h4></td><td><strong>Hosted</strong></td><td>Learn more about hosting the developer platform.</td><td><a href="https://app.gitbook.com/s/iunjpYXuo9JOS4Sy0saW/getting-started/your-first-project">Your first project</a></td><td><a href=".gitbook/assets/hosted.jpg">hosted.jpg</a></td></tr><tr><td><h4><i class="fa-terminal" style="color:$primary;">:terminal:</i></h4></td><td><strong>API reference</strong></td><td>Browse, test, and implement APIs.</td><td><a href="https://app.gitbook.com/o/PsT8znIAyEpCRNzCjU0B/s/ADVxqnJHkxRkmUVwVeww/">API Reference</a></td><td><a href=".gitbook/assets/api-reference.jpg">api-reference.jpg</a></td></tr></tbody></table>
-
-&#x20;
-
-&#x20;
-
-{% columns %}
-{% column width="50%" %}
-## Get started in minutes
-
-Make your first API call in under 5 minutes.
-
-This quickstart walks through the basic setup: create an account, generate an API key, and send a test request. The examples use the same request in several languages, so you can start with the one that matches your stack.
-
-{% hint style="info" icon="sparkle" %}
-**Customize your first request**
-
-Explain what you're building and let AI tweak your quickstart.
-
-<button type="button" class="button primary" data-action="ask" data-icon="gitbook-assistant">What are you building?</button>
-{% endhint %}
-
-{% hint style="warning" icon="life-ring" %}
-**Need some help?**
-
-Troubleshoot common issues or ask for help.
-
-<details>
-
-<summary>I get a 401 Unauthorized error</summary>
-
-Check that your API key is present and valid.
-
-Make sure you replaced `YOUR_API_KEY` in the example.
-
-Confirm the `Authorization` header uses `Bearer YOUR_API_KEY`.
-
-</details>
-
-<details>
-
-<summary>I get a 400 Bad Request error</summary>
-
-Check your request body first.
-
-Make sure the JSON is valid and the `message` field is included.
-
-Also confirm you send `Content-Type: application/json`.
-
-</details>
-
-<details>
-
-<summary>The request succeeds, but the result is not what I expect</summary>
-
-Start with the sample payload before testing custom input.
-
-Check the response `status` field to confirm whether the request was only queued.
-
-If you change the payload shape, verify the endpoint accepts those fields.
-
-</details>
-
-<details>
-
-<summary>My local example does not run</summary>
-
-Check that your runtime and dependencies are installed.
-
-For JavaScript, install the SDK before running the example.
-
-For Python, make sure `requests` is available in your environment.
-
-</details>
-
-<button type="button" class="button primary" data-action="ask" data-icon="gitbook-assistant">Explain what's happening...</button>
-{% endhint %}
-
-With your first request done, use the guides for deeper setup and the API reference for endpoints and parameters.
-
-<a href="https://app.gitbook.com/s/iunjpYXuo9JOS4Sy0saW/getting-started/getting-started" class="button primary" data-icon="rocket-launch">Get started</a> <a href="https://app.gitbook.com/o/PsT8znIAyEpCRNzCjU0B/s/ADVxqnJHkxRkmUVwVeww/" class="button secondary" data-icon="terminal">API reference</a>
-
-&#x20;
-
-&#x20;
-{% endcolumn %}
-
-{% column width="50%" %}
-{% stepper %}
-{% step %}
-#### Create your API key
-
-Set up your account, then generate an API key for local testing and your first integration.
-
-<a href="http://app.gitbook.com/join" class="button primary">Sign up</a><a href="http://app.gitbook.com/join" class="button secondary">Log in</a>
-{% endstep %}
-
-{% step %}
-#### Make your first request
-
-Pick a language below, replace `YOUR_API_KEY`, and run.
+&#x20;Conheça as estruturas disponíveis abaixo:
 
 {% tabs %}
-{% tab title="JavaScript" %}
-{% code overflow="wrap" %}
-```javascript
-// Import the SDK
-import ExampleAPI from "example-api";
+{% tab title="Pilha" icon="layer-group" %}
+## Pilha ($$pilha$$)
 
-// Initialize the client
-const client = new ExampleAPI({ apiKey: "YOUR_API_KEY" });
+Estrutura linear de acesso LIFO (_Last-In, First-Out_), na qual a inserção e a remoção de registros ocorrem exclusivamente na extremidade superior. No projeto, funciona como uma das opções de Tipo Abstrato de Dados (TAD) para armazenar todo o dataset lido ou os resultados obtidos após a execução de uma consulta.
 
-// Send your first message
-const response = await client.messages.send({
-  message: "Hello, world!"
-});
-```
-{% endcode %}
+
 {% endtab %}
 
-{% tab title="Python" %}
-{% code overflow="wrap" %}
-```python
-import requests
+{% tab title="Fila" icon="rectangle-history" %}
+## Fila ($$fila$$)
 
-response = requests.post(
-    "https://api.example.com/messages",
-    headers={
-        "Authorization": "Bearer YOUR_API_KEY",
-        "Content-Type": "application/json",
-    },
-    json={
-        "message": "Hello, world!"
-    },
-)
-
-print(response.json())
-```
-{% endcode %}
+Estrutura de dados linear regida pelo princípio FIFO (_First-In, First-Out_), em que os novos registros são inseridos ao final e as remoções ocorrem no início. Permite guardar a base completa ou organizar os resultados correspondentes mantendo rigorosamente a ordem em que foram processados.
 {% endtab %}
 
-{% tab title="cURL" %}
-{% code overflow="wrap" %}
-```bash
-curl -X POST https://api.example.com/messages \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "message": "Hello, world!"
-  }'
-```
-{% endcode %}
+{% tab title="Lista Sequencial" icon="chart-tree-map" %}
+## Lista sequencial ($$fila \_ seq$$)
+
+Estrutura de dados baseada em alocação contígua de memória, onde os itens são dispostos em posições sequenciais indexadas. É utilizada tanto para a carga completa do arquivo de entrada quanto para conter o conjunto de dados filtrado pelo programa.
 {% endtab %}
 
-{% tab title="Go" %}
-{% code overflow="wrap" expandable="true" %}
-```go
-package main
+{% tab title="Lista Encadeada" icon="diagram-next" %}
+## Lista encadeada ($$lista\_enc$$)
 
-import (
-    "bytes"
-    "fmt"
-    "io"
-    "net/http"
-)
+Estrutura composta por nós alocados dinamicamente na memória, onde cada elemento se conecta ao próximo por meio de ponteiros. Oferece flexibilidade no gerenciamento de memória para armazenar a base principal de dados ou os itens retornados pela busca.
+{% endtab %}
 
-func main() {
-    body := []byte(`{"message":"Hello, world!"}`)
+{% tab title="Lista com Cabeça" icon="album-collection-circle-user" %}
+## Lista com Cabeça ($$lista\_cabeca$$**)**
 
-    req, err := http.NewRequest("POST", "https://api.example.com/messages", bytes.NewBuffer(body))
-    if err != nil {
-        panic(err)
-    }
+Estrutura encadeada que inclui obrigatoriamente um nó cabeça ou sentinela no início, o qual serve de referência fixa e não armazena dados. Todas as operações de inserção, remoção, busca e percurso utilizam essa representação para padronizar e simplificar a manipulação da lista.
+{% endtab %}
 
-    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
-    req.Header.Set("Content-Type", "application/json")
+{% tab title="Untitled" icon="list-ol" %}
+## Lista ordenada ($$lista\_ord$$)
 
-    resp, err := http.DefaultClient.Do(req)
-    if err != nil {
-        panic(err)
-    }
-    defer resp.Body.Close()
+Estrutura na qual a ordenação dos registros é mantida de forma contínua no exato momento de cada inserção, utilizando como chave um critério especificado na consulta. A implementação proíbe o armazenamento prévio dos dados sem ordem para posterior ordenação final.
+{% endtab %}
 
-    responseBody, err := io.ReadAll(resp.Body)
-    if err != nil {
-        panic(err)
-    }
+{% tab title="Untitled" icon="diagram-predecessor" %}
+## Lista generalizada ($$lista\_gen$$)
 
-    fmt.Println(string(responseBody))
-}
-```
-{% endcode %}
+Estrutura avançada que organiza os registros em grupos e subgrupos hierárquicos a partir dos campos configurados no comando de agrupamento (como organizar por categoria de ameaça e, em seguida, por ano). Permite estruturar e navegar pelo dataset através de múltiplos níveis de subconjuntos.
+{% endtab %}
+
+{% tab title="Lista Cruzada" icon="grid" %}
+## Lista cruzada ($$lista\_cruz$$)
+
+Estrutura avançada multidimensional que permite que um mesmo registro participe de duas organizações de navegação simultâneas sem a necessidade de duplicar o dado na memória. Habilita o percurso dos itens sob dois eixos de análise distintos, como a travessia por categoria de ameaça ou por ano.
 {% endtab %}
 {% endtabs %}
+
+* Cada estrutura de dados trabalha de forma independente das demais e é de responsabilidade do usuário escolher qual estrutura armazenará o seu dataset.
+* A escolha da estrutura altera efetivamente a organização dos itens
+* Cada estrutura de dados possui funções auxiliares que permitem interagir com os dados contidos nelas&#x20;
+
+## Como funciona?
+
+{% stepper %}
+{% step %}
+#### Reader
+
+O reader escolhido recebe o caminho do arquivo contendo o dataset, a estrutura escolhida e a função de inserção correspondente à ela.&#x20;
+
+Ele transforma cada linha do arquivo em uma estrutura do tipo ITEM e insere na estrutura escolhida utilizando a função passada
+
+Veja mais sobre o arquivo Reader:
 {% endstep %}
 
 {% step %}
-#### Parse the response
+#### TAD ITEM
 
-If the request succeeds, you should get a response like this:
+Cada linha lida pelo reader é enviada como string para a função item\_criar, que separa os valores de cada campo em parâmetros de uma estrutura especial do tipo ITEM
 
-{% code title="response.json" overflow="wrap" %}
-```json
-{
-  "id": "msg_1234567890",
-  "message": "Hello, world!",
-  "status": "queued",
-  "createdAt": "2026-01-01T12:00:00Z"
-}
+Para o dataset incial, responsável pela parte 1 do trabalho, a struct ITEM possui o seguinte formato:
+
+{% code expandable="true" %}
+```c
+struct item_{
+    bool alterado; 
+    char *linha_bruta;
+    char asteroid_designation[25];
+    char asteroid_fullname[35];
+    int year;
+    int month;
+    double distance_au;
+    double velocity_km_s;
+    double absolute_magnitude; 
+    int days_until_approach;
+    bool is_past_event;
+    bool is_future_event;
+    double risk_score;  
+    int panic_level;
+    char threat_category[20];
+    char panic_verdict[50];
+    bool on_sentry_list;
+    char sentry_impact_prob; 
+    double sentry_torino_scale;
+    double sentry_palermo_scale;
+    double sentry_diameter_km;
+};
 ```
 {% endcode %}
+
+Veja mais sobre o TAD ITEM:
+
+
+{% endstep %}
+
+{% step %}
+#### Retorno
+
+Após inserir cada item na estrutura, o reader retorna um inteiro que corresponde ao número de inserções realizadas
+
+```mermaid
+graph LR
+  Arquivo --> Reader --> ITEM 
+  ITEM --> Estrutura
+```
 {% endstep %}
 {% endstepper %}
-{% endcolumn %}
-{% endcolumns %}
 
-&#x20;
 
-&#x20;
 
-{% columns %}
-{% column width="50%" %}
-<figure><img src="https://gitbookio.github.io/onboarding-template-images/placeholder.png" alt=""><figcaption></figcaption></figure>
-{% endcolumn %}
-
-{% column width="50%" valign="middle" %}
-## Learn more about the developer platform
-
-Read guides, watch tutorials, and learn more about working with the developer platform and integrating it with your own stack.
-
-<a href="https://app.gitbook.com/s/iunjpYXuo9JOS4Sy0saW/guides/guides" class="button primary" data-icon="book-open">Guides</a> <a href="https://app.gitbook.com/s/iunjpYXuo9JOS4Sy0saW/" class="button secondary" data-icon="book">Documentation</a>
-{% endcolumn %}
-{% endcolumns %}
-
-&#x20;
-
-&#x20;
-
-<h2 align="center">Join a community of over 3,000 developers</h2>
-
-<p align="center">Join our Discord community or create your first PR in just a few steps.</p>
-
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><h4><i class="fa-discord">:discord:</i></h4></td><td><strong>Discord community</strong></td><td>Join our Discord community to post questions, get help, and share resources with over 3,000 like-minded developers.</td><td><a href="https://www.gitbook.com/" class="button secondary">Join Discord</a></td><td></td><td><a href="https://www.gitbook.com/">https://www.gitbook.com/</a></td></tr><tr><td><h4><i class="fa-github">:github:</i></h4></td><td><strong>GitHub</strong></td><td>Our product is 100% open source and built by developers just like you. Head to our GitHub repository to learn how to submit your first PR.</td><td><a href="https://github.com/GitbookIO/gitbook-templates" class="button secondary">Submit a PR</a></td><td></td><td><a href="https://www.gitbook.com/">https://www.gitbook.com/</a></td></tr></tbody></table>
-
-&#x20;
