@@ -45,8 +45,8 @@ bool pilha_inserir(void *pilha_ptr, ITEM *item){
     return true;
 }
 
-ITEM *pilha_desempilhar(PILHA *pilha, ITEM *item){
-    if(pilha == NULL || item == NULL) return NULL;
+ITEM *pilha_desempilhar(PILHA *pilha){
+    if(pilha == NULL) return NULL;
 
     NO *removido = pilha->topo;
     if(removido == NULL) return NULL;
@@ -61,7 +61,7 @@ ITEM *pilha_desempilhar(PILHA *pilha, ITEM *item){
 }
 
 void pilha_apagar(PILHA **pilha, bool apagar_itens){
-    if(pilha == NULL) return NULL;
+    if(pilha == NULL) return;
 
     NO *atual = (*pilha)->topo;
 

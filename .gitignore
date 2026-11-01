@@ -24,3 +24,4 @@ q_test_tmp.txt
 *.swp
 .DS_Store
 test_lista_enc
+src/main.c
