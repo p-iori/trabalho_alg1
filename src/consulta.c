@@ -99,7 +99,7 @@ static void consulta_adicionar_filtro(CONSULTA *c, const char *campo, const char
 static void consulta_adicionar_sim(CONSULTA *c, const char *campo, double alvo, double tol, double peso){
     if(c->qtd_similares >= c->cap_similares){
         c->cap_similares *= 2;
-        c->similares = (SIM*) realloc(c->similares, sizeof(FILTER) * c->cap_filtros);
+        c->similares = (SIM*) realloc(c->similares, sizeof(SIM) * c->cap_filtros);
     }
 
     SIM *s = &c->similares[c->qtd_similares++];

@@ -24,7 +24,7 @@ int reader_nasa_carregar(const char *caminho_csv, int limite, void *estrutura_ba
     int inseridos = 0;
     
     while((limite == 0 || inseridos < limite) && fgets(linha, sizeof(linha), f) != NULL){
-        linha[strcspn(linha, "\r\n")];
+        linha[strcspn(linha, "\r\n")] = '\0';
         if(strlen(linha) == 0) continue;
 
         ITEM *item = item_criar(linha);

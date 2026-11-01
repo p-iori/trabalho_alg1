@@ -257,7 +257,7 @@ bool item_comparar_texto(const ITEM *a, const ITEM *b, const char campo[]){
     char *val_a = item_get_texto(a, campo);
     char *val_b = item_get_texto(b, campo);
 
-    if(strcmp(a, b) == 0) return true;
+    if(strcmp(val_a, val_b) == 0) return true;
 
     return false;
 }
