@@ -4,7 +4,7 @@
 
 #include "lista_seq.h"
 
-#define CAPACIDADE_INICIAL 100
+#define CAPACIDADE_INICIAL 1000
 
 struct lista_seq_ {
     ITEM **itens;
