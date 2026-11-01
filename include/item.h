@@ -61,8 +61,9 @@ const char* item_get_linha_original(const ITEM *item);
  * @brief Imprime os parâmetros do item no formato original do arquivo .csv 
  * 
  * @param item Ponteiro para a struct ITEM
+ * @param file O arquivo de output
  */
-void item_print_csv(const ITEM *item);
+void item_print_csv(const ITEM *item, FILE *file);
 
 /**
  * @brief Compara o valor de um campo NUMÉRICO em dois itens
