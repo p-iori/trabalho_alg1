@@ -30,6 +30,8 @@ struct item_{
     double sentry_diameter_km;
 };
 
+static ITEM* item_parse_linha(ITEM* item, const char *linha_original);
+
 // meu compilador não estava aceitando o uso das funções strdup e strsep de forma nativa
 
 static char* custom_strdup(const char *s) {
