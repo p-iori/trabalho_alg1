@@ -15,7 +15,7 @@ int reader_nasa_carregar(const char *caminho_csv, int limite, void *estrutura_ba
     
     char linha[1024]; 
     
-    if(fgets(linha, sizeof(f), f) == NULL){
+    if(fgets(linha, sizeof(linha), f) == NULL){
         fclosef(f);
         return 0; 
     }
