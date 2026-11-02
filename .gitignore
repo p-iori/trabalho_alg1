@@ -25,3 +25,6 @@ q_test_tmp.txt
 .DS_Store
 test_lista_enc
 src/main.c
+Makefile
+consultas/q1.txt
+dados/asteroids.csv
