@@ -137,7 +137,7 @@ void item_print_csv(const ITEM *item, FILE *f){
         return;
     }
 
-    printf("%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%.2f,%.2f,%.2f\n",
+    fprintf("%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%.2f,%.2f,%.2f\n",
             item_get_texto(item, "asteroid_designation"),
             item_get_texto(item, "asteroid_fullname"),
             (int)item_get_numero(item, "year"),
@@ -251,17 +251,12 @@ bool item_comparar_numero(const ITEM *a, const ITEM *b, const char campo[]){
 bool item_comparar_texto(const ITEM *a, const ITEM *b, const char campo[]){
     if(a == NULL || b == NULL || campo == NULL) return false;
 
-    if((item_get_numero(a, campo) == -1) || (item_get_numero(b, campo) == -1)){
-        printf("ERRO: Pelo menos um dos valores não é uma string");
-        return false;
-    }
-    
-    char *val_a = item_get_texto(a, campo);
-    char *val_b = item_get_texto(b, campo);
+    const char *val_a = item_get_texto(a, campo);
+    const char *val_b = item_get_texto(b, campo);
 
-    if(strcmp(val_a, val_b) == 0) return true;
+    if(val_a == NULL || val_b == NULL) return false;
 
-    return false;
+    return (strcmp(val_a, val_b) == 0);
 }
 
 ITEM *item_clonar(const ITEM *item){
