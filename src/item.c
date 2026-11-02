@@ -131,13 +131,13 @@ const char* item_get_linha_original(const ITEM *item){
 void item_print_csv(const ITEM *item, FILE *f){
     if(item == NULL || f == NULL) return;
 
-    // se a linha não foi alterada, imprime a linha original (menos custoso)
+    // Se a linha não foi alterada, imprime a linha original seguida de quebra de linha
     if(!item->alterado) {
-        fprintf(f, "%s", item->linha_bruta);
+        fprintf(f, "%s\n", item->linha_bruta); // <-- Adicionado o \n
         return;
     }
 
-    fprintf("%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%.2f,%.2f,%.2f\n",
+    fprintf(f, "%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%.2f,%.2f,%.2f\n",
             item_get_texto(item, "asteroid_designation"),
             item_get_texto(item, "asteroid_fullname"),
             (int)item_get_numero(item, "year"),
