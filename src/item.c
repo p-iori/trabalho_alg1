@@ -5,34 +5,32 @@
 
 #include "item.h"
 
-// Estrutura que armazena os campos do csv de cada asteroide, além da linha bruta (facilita o print das informações) 
-struct item_{
+struct item_ {
     bool alterado; 
     char *linha_bruta;
-    char asteroid_designation[25];
-    char asteroid_fullname[35];
+    char asteroid_designation[30];
+    char asteroid_fullname[50];
+    char close_approach_date[30];
     int year;
     int month;
     double distance_au;
     double velocity_km_s;
     double absolute_magnitude; 
     int days_until_approach;
-    bool is_past_event;
-    bool is_future_event;
+    char is_past_event[10];
+    char is_future_event[10];
     double risk_score;  
     int panic_level;
-    char threat_category[20];
-    char panic_verdict[50];
-    bool on_sentry_list;
-    char sentry_impact_prob; 
+    char threat_category[30];
+    char panic_verdict[60];
+    char on_sentry_list[10];
+    char sentry_impact_prob[30]; 
     double sentry_torino_scale;
     double sentry_palermo_scale;
     double sentry_diameter_km;
 };
 
 static ITEM* item_parse_linha(ITEM* item, const char *linha_original);
-
-// meu compilador não estava aceitando o uso das funções strdup e strsep de forma nativa
 
 static char* custom_strdup(const char *s) {
     if (s == NULL) return NULL;
@@ -64,38 +62,30 @@ ITEM *item_criar(const char linha_bruta[]){
     ITEM *item = (ITEM*) malloc(sizeof(ITEM));
     if(item == NULL) return NULL;
 
-    item->alterado = false; //incializa o valor para evitar confusão com o lixo da memória
-
-    item->linha_bruta = (linha_bruta != NULL) ? custom_strdup(linha_bruta) : NULL; // vamos precisar liberar essa parte da memória também
+    item->alterado = false;
+    item->linha_bruta = (linha_bruta != NULL) ? custom_strdup(linha_bruta) : NULL;
     item_parse_linha(item, linha_bruta);
 
     return item;
 }
 
-// função auxiliar que retorna um item vazio
 ITEM *item_criar_vazio(void) {
-    // calloc aloca e zera a memória
-    ITEM *item_vazio = (ITEM*) calloc(1, sizeof(ITEM));
-    if (item_vazio == NULL) return NULL; 
-
-    return item_vazio;
+    return (ITEM*) calloc(1, sizeof(ITEM));
 }
 
 void item_apagar(ITEM **item) {
     if (item == NULL || *item == NULL) return;
 
-    // libera a memória alocada dinamicamente para a string
     if ((*item)->linha_bruta != NULL) {
         free((*item)->linha_bruta);
         (*item)->linha_bruta = NULL;
     }
-    // libera a parte restante da struct
     free(*item);
     *item = NULL;
 }
 
 double item_get_numero(const ITEM *item, const char campo[]){
-    if(item == NULL || campo == NULL) return 0.0;
+    if(item == NULL || campo == NULL) return -1.0;
 
     if(strcmp(campo, "year") == 0) return item->year;
     if(strcmp(campo, "month") == 0) return item->month;
@@ -109,16 +99,26 @@ double item_get_numero(const ITEM *item, const char campo[]){
     if(strcmp(campo, "sentry_palermo_scale") == 0) return item->sentry_palermo_scale;
     if(strcmp(campo, "sentry_diameter_km") == 0) return item->sentry_diameter_km;
 
-    return -1;
+    // Suporte numérico para flags booleanas
+    if(strcmp(campo, "is_past_event") == 0) return (strcmp(item->is_past_event, "true") == 0) ? 1.0 : 0.0;
+    if(strcmp(campo, "is_future_event") == 0) return (strcmp(item->is_future_event, "true") == 0) ? 1.0 : 0.0;
+    if(strcmp(campo, "on_sentry_list") == 0) return (strcmp(item->on_sentry_list, "true") == 0) ? 1.0 : 0.0;
+
+    return -1.0;
 }
 
 const char* item_get_texto(const ITEM *item, const char campo[]){
     if(item == NULL || campo == NULL) return NULL;
 
+    if(strcmp(campo, "asteroid_designation") == 0) return item->asteroid_designation;
     if(strcmp(campo, "asteroid_fullname") == 0) return item->asteroid_fullname;
+    if(strcmp(campo, "close_approach_date") == 0) return item->close_approach_date;
+    if(strcmp(campo, "is_past_event") == 0) return item->is_past_event;
+    if(strcmp(campo, "is_future_event") == 0) return item->is_future_event;
     if(strcmp(campo, "threat_category") == 0) return item->threat_category;
     if(strcmp(campo, "panic_verdict") == 0) return item->panic_verdict;
-    if(strcmp(campo, "asteroid_designation") == 0) return item->asteroid_designation;
+    if(strcmp(campo, "on_sentry_list") == 0) return item->on_sentry_list;
+    if(strcmp(campo, "sentry_impact_prob") == 0) return item->sentry_impact_prob;
 
     return NULL;
 }
@@ -131,123 +131,141 @@ const char* item_get_linha_original(const ITEM *item){
 void item_print_csv(const ITEM *item, FILE *f){
     if(item == NULL || f == NULL) return;
 
-    // Se a linha não foi alterada, imprime a linha original seguida de quebra de linha
-    if(!item->alterado) {
-        fprintf(f, "%s\n", item->linha_bruta); // <-- Adicionado o \n
+    if(!item->alterado && item->linha_bruta != NULL) {
+        fprintf(f, "%s\n", item->linha_bruta);
         return;
     }
 
-    fprintf(f, "%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%.2f,%.2f,%.2f\n",
+    fprintf(f, "%s,%s,%s,%d,%d,%.4f,%.2f,%.4f,%d,%s,%s,%.4f,%d,%s,%s,%s,%s,%.2f,%.2f,%.2f\n",
             item_get_texto(item, "asteroid_designation"),
             item_get_texto(item, "asteroid_fullname"),
+            item_get_texto(item, "close_approach_date"),
             (int)item_get_numero(item, "year"),
             (int)item_get_numero(item, "month"),
             item_get_numero(item, "distance_au"),
             item_get_numero(item, "velocity_km_s"),
             item_get_numero(item, "absolute_magnitude"),
             (int)item_get_numero(item, "days_until_approach"),
-            item_get_texto(item, "threat_category"),
-            item_get_texto(item, "panic_verdict"),
+            item_get_texto(item, "is_past_event"),
+            item_get_texto(item, "is_future_event"),
             item_get_numero(item, "risk_score"),
             (int)item_get_numero(item, "panic_level"),
+            item_get_texto(item, "threat_category"),
+            item_get_texto(item, "panic_verdict"),
             item_get_texto(item, "on_sentry_list"),
+            item_get_texto(item, "sentry_impact_prob"),
             item_get_numero(item, "sentry_torino_scale"),
             item_get_numero(item, "sentry_palermo_scale"),
             item_get_numero(item, "sentry_diameter_km")
     );
 }
 
-// recebe a string cortada até o campo atual
 static char* item_extrair_proximo_campo(char **string_ptr){
     if(string_ptr == NULL || *string_ptr == NULL) return NULL;
-    
-    // armazena tudo que estiver entre o início da str e a primeira vírgula (token), então troca essa virgula por /0 e remove tudo antes dela. retorna o token no final de tudo
     return custom_strsep(string_ptr, ",");
 }
 
 static ITEM* item_parse_linha(ITEM* item, const char *linha_original){
     if(linha_original == NULL || linha_original[0] == '\0') return NULL;
 
-    // a função custom_strsep modifica a string original, então precisamos copiar ela em um ponteiro
     char *orig = custom_strdup(linha_original);
+    if (orig == NULL) return item;
     char *ptr = orig;
+    char *token;
 
-    char *token; // essa variável vai ser reutilizada várias vezes pela função
-    
-    // asteroid_designation
+    // 1. asteroid_designation
     token = item_extrair_proximo_campo(&ptr);
-    if (token && token[0] != '\0') {
-        strncpy(item->asteroid_designation, token, sizeof(item->asteroid_designation) - 1);
-    }
+    if (token && token[0] != '\0') strncpy(item->asteroid_designation, token, sizeof(item->asteroid_designation) - 1);
 
-    // asteroid_fullname
+    // 2. asteroid_fullname
     token = item_extrair_proximo_campo(&ptr);
-    if (token && token[0] != '\0') {
-        strncpy(item->asteroid_fullname, token, sizeof(item->asteroid_fullname) - 1);
-    }
+    if (token && token[0] != '\0') strncpy(item->asteroid_fullname, token, sizeof(item->asteroid_fullname) - 1);
 
-    
-    // atribuímos -1 para todos os campos vazios (-1.0 se o campo for um double)
+    // 3. close_approach_date
+    token = item_extrair_proximo_campo(&ptr);
+    if (token && token[0] != '\0') strncpy(item->close_approach_date, token, sizeof(item->close_approach_date) - 1);
 
-    // year
+    // 4. year
     token = item_extrair_proximo_campo(&ptr);
     item->year = (token && token[0] != '\0') ? atoi(token) : -1;
-    // month
+
+    // 5. month
     token = item_extrair_proximo_campo(&ptr);
     item->month = (token && token[0] != '\0') ? atoi(token) : -1;
-    // distance_au 
+
+    // 6. distance_au 
     token = item_extrair_proximo_campo(&ptr);
     item->distance_au = (token && token[0] != '\0') ? atof(token) : -1.0;
-    // velocity_km_s
+
+    // 7. velocity_km_s
     token = item_extrair_proximo_campo(&ptr);
     item->velocity_km_s = (token && token[0] != '\0') ? atof(token) : -1.0;
-    // absolute_magnitude
+
+    // 8. absolute_magnitude
     token = item_extrair_proximo_campo(&ptr);
     item->absolute_magnitude = (token && token[0] != '\0') ? atof(token) : -1.0;
-    // days_until_approach
+
+    // 9. days_until_approach
     token = item_extrair_proximo_campo(&ptr);
     item->days_until_approach = (token && token[0] != '\0') ? atoi(token) : -1;
-    // threat_category
+
+    // 10. is_past_event
     token = item_extrair_proximo_campo(&ptr);
-    if (token && token[0] != '\0') {
-        strncpy(item->threat_category, token, sizeof(item->threat_category) - 1);
-    }
-    // panic_verdict
+    if (token && token[0] != '\0') strncpy(item->is_past_event, token, sizeof(item->is_past_event) - 1);
+
+    // 11. is_future_event
     token = item_extrair_proximo_campo(&ptr);
-    if (token && token[0] != '\0') {
-        strncpy(item->panic_verdict, token, sizeof(item->panic_verdict) - 1);
-    }
-    // risk_score
+    if (token && token[0] != '\0') strncpy(item->is_future_event, token, sizeof(item->is_future_event) - 1);
+
+    // 12. risk_score
     token = item_extrair_proximo_campo(&ptr);
     item->risk_score = (token && token[0] != '\0') ? atof(token) : -1.0;
-    // panic_level
+
+    // 13. panic_level
     token = item_extrair_proximo_campo(&ptr);
     item->panic_level = (token && token[0] != '\0') ? atoi(token) : -1;
-    // libera o ponteiro utilizado
-    free(orig);
 
+    // 14. threat_category
+    token = item_extrair_proximo_campo(&ptr);
+    if (token && token[0] != '\0') strncpy(item->threat_category, token, sizeof(item->threat_category) - 1);
+
+    // 15. panic_verdict
+    token = item_extrair_proximo_campo(&ptr);
+    if (token && token[0] != '\0') strncpy(item->panic_verdict, token, sizeof(item->panic_verdict) - 1);
+
+    // 16. on_sentry_list
+    token = item_extrair_proximo_campo(&ptr);
+    if (token && token[0] != '\0') strncpy(item->on_sentry_list, token, sizeof(item->on_sentry_list) - 1);
+
+    // 17. sentry_impact_prob
+    token = item_extrair_proximo_campo(&ptr);
+    if (token && token[0] != '\0') strncpy(item->sentry_impact_prob, token, sizeof(item->sentry_impact_prob) - 1);
+
+    // 18. sentry_torino_scale
+    token = item_extrair_proximo_campo(&ptr);
+    item->sentry_torino_scale = (token && token[0] != '\0') ? atof(token) : -1.0;
+
+    // 19. sentry_palermo_scale
+    token = item_extrair_proximo_campo(&ptr);
+    item->sentry_palermo_scale = (token && token[0] != '\0') ? atof(token) : -1.0;
+
+    // 20. sentry_diameter_km
+    token = item_extrair_proximo_campo(&ptr);
+    item->sentry_diameter_km = (token && token[0] != '\0') ? atof(token) : -1.0;
+
+    free(orig);
     return item;
 }
 
-// função para auxiliar nas operações de ordenação, principalmente
-// retorna TRUE se A for maior
 bool item_comparar_numero(const ITEM *a, const ITEM *b, const char campo[]){
     if(a == NULL || b == NULL || campo == NULL) return false;
     double val_a = item_get_numero(a, campo);
     double val_b = item_get_numero(b, campo);
 
-    if((val_a == -1) || (val_b == -1)){
-        printf("ERRO: Pelo menos um dos valores não é um número");
-        return false;
-    }
-
-    if(val_a > val_b) return true;
-    if(val_a < val_b) return false;
-
-    return false; 
-
+    if(val_a == -1.0 || val_b == -1.0) return false;
+    return (val_a > val_b);
 }
-// retorna TRUE se os valores forem IGUAIS
+
 bool item_comparar_texto(const ITEM *a, const ITEM *b, const char campo[]){
     if(a == NULL || b == NULL || campo == NULL) return false;
 
@@ -255,7 +273,6 @@ bool item_comparar_texto(const ITEM *a, const ITEM *b, const char campo[]){
     const char *val_b = item_get_texto(b, campo);
 
     if(val_a == NULL || val_b == NULL) return false;
-
     return (strcmp(val_a, val_b) == 0);
 }
 
@@ -266,7 +283,6 @@ ITEM *item_clonar(const ITEM *item){
     if(item_clonado == NULL) return NULL;
 
     *item_clonado = *item;    
-    // necessario pois esse campo é um ponteiro dinamico na struct
     if(item->linha_bruta != NULL){
         item_clonado->linha_bruta = custom_strdup(item->linha_bruta);
         if(item_clonado->linha_bruta == NULL){

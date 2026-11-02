@@ -246,8 +246,7 @@ bool pipeline_run(PIPELINE *exec, const CONFIG *cli) {
     FILE *f_out = fopen(caminho_output, "w");
     if (f_out != NULL) {
         // Escreve o cabeçalho idêntico ao dataset de entrada
-        fprintf(f_out, "asteroid_designation,asteroid_fullname,year,month,distance_au,velocity_km_s,absolute_magnitude,days_until_approach,threat_category,panic_verdict,risk_score,panic_level,on_sentry_list,sentry_torino_scale,sentry_palermo_scale,sentry_diameter_km\n");
-        
+        fprintf(f_out, "asteroid_designation,asteroid_fullname,close_approach_date,year,month,distance_au,velocity_km_s,absolute_magnitude,days_until_approach,is_past_event,is_future_event,risk_score,panic_level,threat_category,panic_verdict,on_sentry_list,sentry_impact_prob,sentry_torino_scale,sentry_palermo_scale,sentry_diameter_km\n");        
         CONTEXTO_ESCRITA ctx_escrita = {
             .exec = exec,
             .f_out = f_out,
