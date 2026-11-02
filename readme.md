@@ -10,7 +10,7 @@ O objetivo do projeto é implementar um motor de busca e organização de dados 
 
 ---
 
-## 📌 Funcionalidades Principais
+## Funcionalidades Principais
 
 - **Leitura e Filtro de Dados:** Leitura de datasets em formato CSV (Aproximação de Asteroides pela NASA) com parsing dinâmico de campos e tratamento de valores ausentes.
 - **Processador de Consultas:** Suporte a arquivos de busca estruturados com suporte aos comandos:
@@ -25,7 +25,7 @@ O objetivo do projeto é implementar um motor de busca e organização de dados 
 
 ---
 
-## 🛠️ Estruturas de Dados Implementadas (TADs)
+## Estruturas de Dados Implementadas (TADs)
 
 O projeto suporta 8 Tipos Abstratos de Dados (TADs), implementados do zero sem o uso de bibliotecas externas:
 
@@ -40,7 +40,7 @@ O projeto suporta 8 Tipos Abstratos de Dados (TADs), implementados do zero sem o
 
 ---
 
-## 📂 Arquitetura do Projeto
+## Arquitetura do Projeto
 
 ```text
 .
@@ -75,7 +75,7 @@ O projeto suporta 8 Tipos Abstratos de Dados (TADs), implementados do zero sem o
 
 ---
 
-## 🚀 Como Compilar e Executar
+## Como Compilar e Executar
 
 ### Pré-requisitos
 - Compilador `gcc` suportando C99/C11.
@@ -117,7 +117,7 @@ make
 
 ---
 
-## 📊 Formato de Saída (Terminal)
+## Formato de Saída (Terminal)
 
 Ao finalizar a execução, o programa imprime no `stdout`:
 
@@ -134,6 +134,6 @@ WRITE_MS=1.050
 
 ---
 
-## 📖 Documentação Completa
+## Documentação Completa
 
 Para uma análise detalhada sobre a complexidade assintótica das operações, benchmarks experimentais de tempo de execução e guias avançados de arquitetura, acesse nossa documentação no **GitBook**.
