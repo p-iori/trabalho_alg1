@@ -7,7 +7,7 @@ icon: compass
 
 # Your first project
 
-This walkthrough goes deeper than the [Quickstart](quickstart.md). By the end, you'll have a real project with environment variables, a custom build, and a preview deployment workflow.
+This walkthrough goes deeper than the [Quickstart](estruturas-de-dados/). By the end, you'll have a real project with environment variables, a custom build, and a preview deployment workflow.
 
 {% hint style="info" %}
 We'll use a generic web project for this tutorial. The same pattern works for static sites, APIs, and worker services.

@@ -1,12 +1,16 @@
 # Table of contents
 
-* [Welcome](README.md)
+* [Início](README.md)
 
-## Getting Started
+## Documentação
 
-* [Getting started](getting-started/getting-started.md)
-* [Quickstart](getting-started/quickstart.md)
-* [Your first project](getting-started/your-first-project.md)
+* [Getting started](documentacao/getting-started.md)
+* [Estruturas de dados](documentacao/estruturas-de-dados/README.md)
+  * [TAD Pilha](documentacao/estruturas-de-dados/tad-pilha.md)
+  * [TAD Fila](documentacao/estruturas-de-dados/tad-fila.md)
+  * [TAD Lista Sequencial](documentacao/estruturas-de-dados/tad-lista-sequencial.md)
+  * [Page 1](documentacao/estruturas-de-dados/page-1.md)
+* [Your first project](documentacao/your-first-project.md)
 
 ## Core concepts
 
