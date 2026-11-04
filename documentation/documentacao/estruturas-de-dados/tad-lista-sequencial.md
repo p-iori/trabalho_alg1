@@ -13,9 +13,7 @@ Diferente de estruturas encadeadas, a lista sequencial permite o acesso direto e
 
 A representação concreta da estrutura encontra-se oculta no ficheiro de implementação `lista_seq.c`, garantindo a abstração dos dados e impedindo o acesso direto aos campos internos por parte do cliente.
 
-C
-
-```
+```c
 #define CAPACIDADE_INICIAL 1000
 
 struct lista_seq_ {
@@ -37,15 +35,15 @@ Quando a quantidade de elementos atinge a capacidade limite do vetor (`tamanho =
 
 | **Operação**      | **Função**            | **Complexidade de Tempo** | **Complexidade de Espaço** |
 | ----------------- | --------------------- | ------------------------- | -------------------------- |
-| Criar Lista       | `lista_seq_criar`     | $$ $O(1)$ $$              | $$ $O(1)$ $$               |
-| Inserir no Fim    | `lista_seq_inserir`   | $$ $O(1)$ $$ amortizado   | $$ $O(1)$ $$               |
-| Obter por Índice  | `lista_seq_obter`     | $$ $O(1)$ $$              | $$ $O(1)$ $$               |
-| Destruir          | `lista_seq_apagar`    | $$ $O(N)$ $$              | $$ $O(1)$ $$               |
-| Consultar Tamanho | `lista_seq_tamanho`   | $$ $O(1)$ $$              | $$ $O(1)$ $$               |
-| Verificar Vazia   | `lista_seq_vazia`     | $$ $O(1)$ $$              | $$ $O(1)$ $$               |
-| Percorrer         | `lista_seq_percorrer` | $$ $O(N)$ $$              | $$ $O(1)$ $$               |
+| Criar Lista       | `lista_seq_criar`     | $$O(1)$$                  | $$O(1)$$                   |
+| Inserir no Fim    | `lista_seq_inserir`   | $$O(1)$$ amortizado       | $$O(1)$$                   |
+| Obter por Índice  | `lista_seq_obter`     | $$O(1)$$                  | $$O(1)$$                   |
+| Destruir          | `lista_seq_apagar`    | $$O(N)$$                  | $$O(1)$$                   |
+| Consultar Tamanho | `lista_seq_tamanho`   | $$O(1)$$                  | $$O(1)$$                   |
+| Verificar Vazia   | `lista_seq_vazia`     | $$O(1)$$                  | $$O(1)$$                   |
+| Percorrer         | `lista_seq_percorrer` | $$O(N)$$                  | $$O(1)$$                   |
 
-> Nota: $$ $N$ $$ representa o número de itens armazenados na lista. O acesso indexado via `lista_seq_obter` possui complexidade $$ $O(1)$ $$ devido ao endereçamento direto em memória contígua.
+> Nota: $$N$$ representa o número de itens armazenados na lista. O acesso indexado via `lista_seq_obter` possui complexidade $$O(1)$$ devido ao endereçamento direto em memória contígua.
 
 ### Referência da API
 
@@ -85,7 +83,7 @@ ITEM *lista_seq_obter(const LISTA_SEQ *lista, int posicao);
 
 * Parâmetros:
   * `lista`: Ponteiro constante para a lista.
-  * `posicao`: Índice de acesso baseado em zero ($$ $0 \le \text{posicao} < \text{tamanho}$ $$).
+  * `posicao`: Índice de acesso baseado em zero ($$0 \le \text{posicao} < \text{tamanho}$$).
 * Retorno: Ponteiro para o `ITEM` na posição solicitada, ou `NULL` se a lista for nula ou se o índice for inválido (fora dos limites).
 * Complexidade: $$O(1)$$$$ $O(1)$ $$.
 
@@ -113,7 +111,7 @@ int lista_seq_tamanho(const LISTA_SEQ *lista);
 * Parâmetros:
   * `lista`: Ponteiro constante para a lista.
 * Retorno: Valor inteiro indicando a quantidade de itens. Retorna `0` se a lista for `NULL`.
-* Complexidade: $$O(1)$$$$ $O(1)$ $$.
+* Complexidade: $$O(1)$$.
 
 #### `lista_seq_vazia`
 
@@ -126,7 +124,7 @@ bool lista_seq_vazia(const LISTA_SEQ *lista);
 * Parâmetros:
   * `lista`: Ponteiro constante para a lista.
 * Retorno: `true` se a lista for nula ou não contiver itens; `false` caso contrário.
-* Complexidade: $$O(1)$$$$ $O(1)$ $$.
+* Complexidade: $$O(1)$$.
 
 #### `lista_seq_percorrer`
 
@@ -140,7 +138,7 @@ void lista_seq_percorrer(const LISTA_SEQ *lista, void (*visitar)(ITEM *item, voi
   * `lista`: Ponteiro constante para a lista.
   * `visitar`: Ponteiro para a função de _callback_ que processa cada `ITEM *`.
   * `contexto`: Ponteiro genérico para contexto auxiliar (ex.: descritor de ficheiro, contador).
-* Complexidade: $$O(1)$$$$ $O(N)$ $$.
+* Complexidade: $$O(N)$$.
 
 ### Exemplo de Uso
 

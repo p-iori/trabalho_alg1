@@ -9,7 +9,11 @@
   * [TAD Pilha](documentacao/estruturas-de-dados/tad-pilha.md)
   * [TAD Fila](documentacao/estruturas-de-dados/tad-fila.md)
   * [TAD Lista Sequencial](documentacao/estruturas-de-dados/tad-lista-sequencial.md)
-  * [Page 1](documentacao/estruturas-de-dados/page-1.md)
+  * [TAD Lista Encadeada](documentacao/estruturas-de-dados/tad-lista-encadeada.md)
+  * [TAD Lista Encabeçada](documentacao/estruturas-de-dados/tad-lista-encabecada.md)
+  * [TAD Lista Ordenada](documentacao/estruturas-de-dados/tad-lista-ordenada.md)
+  * [TAD Lista Generalizada](documentacao/estruturas-de-dados/tad-lista-generalizada.md)
+  * [TAD Lista Cruzada](documentacao/estruturas-de-dados/tad-lista-cruzada.md)
 * [Your first project](documentacao/your-first-project.md)
 
 ## Core concepts
