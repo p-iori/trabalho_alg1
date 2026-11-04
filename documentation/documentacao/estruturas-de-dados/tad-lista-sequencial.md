@@ -57,7 +57,7 @@ LISTA_SEQ *lista_seq_criar(void);
 
 * Parâmetros: Nenhum.
 * Retorno: Ponteiro para a estrutura `LISTA_SEQ` alocada ou `NULL` em caso de falha de alocação de memória.
-* Complexidade: $$O(1)$$$$ $O(1)$ $$.
+* Complexidade: $$O(1)$$.
 
 #### `lista_seq_inserir`
 
@@ -71,7 +71,7 @@ bool lista_seq_inserir(void *lista_ptr, ITEM *item);
   * `lista_ptr`: Ponteiro para a instância da lista (conversão interna para `LISTA_SEQ *`).
   * `item`: Ponteiro para o elemento `ITEM` a ser armazenado.
 * Retorno: `true` se a inserção foi realizada com sucesso; `false` se algum argumento for `NULL` ou se a realocação de memória falhar.
-* Complexidade: $$O(1)$$$$ $O(1)$ $$ amortizado ($$ $O(N)$ $$$$O(N)$$ no pior caso de realocação por `realloc`).
+* Complexidade: $$O(1)$$ amortizado ($$O(N)$$ no pior caso de realocação por `realloc`).
 
 #### `lista_seq_obter`
 
@@ -85,7 +85,7 @@ ITEM *lista_seq_obter(const LISTA_SEQ *lista, int posicao);
   * `lista`: Ponteiro constante para a lista.
   * `posicao`: Índice de acesso baseado em zero ($$0 \le \text{posicao} < \text{tamanho}$$).
 * Retorno: Ponteiro para o `ITEM` na posição solicitada, ou `NULL` se a lista for nula ou se o índice for inválido (fora dos limites).
-* Complexidade: $$O(1)$$$$ $O(1)$ $$.
+* Complexidade: $$O(1)$$.
 
 #### `lista_seq_apagar`
 
@@ -98,7 +98,7 @@ void lista_seq_apagar(LISTA_SEQ **lista, bool apagar_itens);
 * Parâmetros:
   * `lista`: Endereço do ponteiro para a lista (`LISTA_SEQ **`). Ao final, `*lista` é atribuído como `NULL`.
   * `apagar_itens`: Booleano que indica se a função `item_apagar()` deve ser executada para cada item contido na lista.
-* Complexidade: $$O(N)$$$$ $O(N)$ $$, onde $$N$$ é a quantidade de elementos na lista.
+* Complexidade: $$O(N)$$, onde $$N$$ é a quantidade de elementos na lista.
 
 #### `lista_seq_tamanho`
 

@@ -4,7 +4,6 @@
 
 ## Documentação
 
-* [Getting started](documentacao/getting-started.md)
 * [Estruturas de dados](documentacao/estruturas-de-dados/README.md)
   * [TAD Pilha](documentacao/estruturas-de-dados/tad-pilha.md)
   * [TAD Fila](documentacao/estruturas-de-dados/tad-fila.md)
@@ -16,11 +15,13 @@
   * [TAD Lista Cruzada](documentacao/estruturas-de-dados/tad-lista-cruzada.md)
 * [Your first project](documentacao/your-first-project.md)
 
-## Core concepts
+## Partes 1 e 2
 
-* [Core concepts](core-concepts/core-concepts.md)
-* [Workspaces and projects](core-concepts/workspaces-and-projects.md)
-* [Permissions](core-concepts/permissions.md)
+* [Datasets](partes-1-e-2/datasets/README.md)
+  * [Parte 1 - Asteroides](partes-1-e-2/datasets/parte-1-asteroides.md)
+  * [Parte 2 - Sinistros de Trânsito](partes-1-e-2/datasets/parte-2-sinistros-de-transito.md)
+* [Workspaces and projects](partes-1-e-2/workspaces-and-projects.md)
+* [Permissions](partes-1-e-2/permissions.md)
 
 ## Guides
 
