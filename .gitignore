@@ -28,3 +28,5 @@ src/main.c
 Makefile
 consultas/q1.txt
 dados/asteroids.csv
+dados/datatran2026.csv
+.gitignore

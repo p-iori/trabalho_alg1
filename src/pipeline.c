@@ -9,8 +9,9 @@
 #include "consulta.h"
 #include "item.h"
 #include "reader_nasa.h"
+#include "reader_detran.h"
 
-// Inclusão dos TADs
+// Inclusão dos TADs de estruturas de dados
 #include "pilha.h"
 #include "fila.h"
 #include "lista_seq.h"
@@ -223,8 +224,10 @@ bool pipeline_run(PIPELINE *exec, const CONFIG *cli) {
     clock_t inicio_load = clock();
     if (strcmp(reader_nome, "nasa") == 0) {
         exec->input_records = reader_nasa_carregar(caminho_input, limite, exec->estrutura_base, exec->inserir_base);
+    } else if (strcmp(reader_nome, "detran") == 0) {
+        exec->input_records = reader_detran_carregar(caminho_input, limite, exec->estrutura_base, exec->inserir_base);
     } else {
-        return false;
+        return false; // Leitor não reconhecido
     }
     clock_t fim_load = clock();
     exec->load_ms = ((double)(fim_load - inicio_load) / CLOCKS_PER_SEC) * 1000.0;
@@ -238,15 +241,20 @@ bool pipeline_run(PIPELINE *exec, const CONFIG *cli) {
     clock_t fim_search = clock();
     exec->search_ms = ((double)(fim_search - inicio_search) / CLOCKS_PER_SEC) * 1000.0;
 
-    // 6. Exportar Resultados para Arquivo CSV
+    // 6. Exportar Resultados para Ficheiro CSV
     clock_t inicio_write = clock();
     const char *caminho_output = cli_get_output(cli);
     int top_k = cli_get_top_k(cli);
     
     FILE *f_out = fopen(caminho_output, "w");
     if (f_out != NULL) {
-        // Escreve o cabeçalho idêntico ao dataset de entrada
-        fprintf(f_out, "asteroid_designation,asteroid_fullname,close_approach_date,year,month,distance_au,velocity_km_s,absolute_magnitude,days_until_approach,is_past_event,is_future_event,risk_score,panic_level,threat_category,panic_verdict,on_sentry_list,sentry_impact_prob,sentry_torino_scale,sentry_palermo_scale,sentry_diameter_km\n");        
+        // Escreve o cabeçalho exato do dataset correspondente
+        if (strcmp(reader_nome, "nasa") == 0) {
+            fprintf(f_out, "asteroid_designation,asteroid_fullname,close_approach_date,year,month,distance_au,velocity_km_s,absolute_magnitude,days_until_approach,is_past_event,is_future_event,risk_score,panic_level,threat_category,panic_verdict,on_sentry_list,sentry_impact_prob,sentry_torino_scale,sentry_palermo_scale,sentry_diameter_km\n");
+        } else if (strcmp(reader_nome, "detran") == 0) {
+            fprintf(f_out, "\"id\";\"data_inversa\";\"dia_semana\";\"horario\";\"uf\";\"br\";\"km\";\"municipio\";\"causa_acidente\";\"tipo_acidente\";\"classificacao_acidente\";\"fase_dia\";\"sentido_via\";\"condicao_metereologica\";\"tipo_pista\";\"tracado_via\";\"uso_solo\";\"pessoas\";\"mortos\";\"feridos_leves\";\"feridos_graves\";\"ilesos\";\"ignorados\";\"feridos\";\"veiculos\";\"latitude\";\"longitude\";\"regional\";\"delegacia\";\"uop\"\n");
+        }
+
         CONTEXTO_ESCRITA ctx_escrita = {
             .exec = exec,
             .f_out = f_out,

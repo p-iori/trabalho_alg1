@@ -7,7 +7,7 @@
 typedef struct item_ ITEM;
 
 /**
- * @brief Cria uma struct do tipo ITEM a partir da linha bruta original. Cada campo da linha é atribuído ao seu campo respectivo na strcut. Caso um campo esteja vazio na linha original, a struct receberá o valor -1
+ * @brief Cria uma struct do tipo ITEM a partir da linha bruta original com a estrutura do dataset NASA. Cada campo da linha é atribuído ao seu campo respectivo na strcut. Caso um campo esteja vazio na linha original, a struct receberá o valor -1
  * 
  * @param linha_bruta A linha original que deverá ser armazenada na estrutura de dados escolhida e que se tornará um ITEM
  * @return Retorna um ponteiro para uma struct ITEM 
@@ -20,6 +20,14 @@ ITEM *item_criar(const char linha_bruta[]);
  * @return Retorna um ponteiro para a struct ITEM vazia criada
  */
 ITEM* item_criar_vazio();
+
+/**
+ * @brief Cria uma struct do tipo ITEM a partir da linha bruta original com a estrutura do dataset DETRAN. Cada campo da linha é atribuído ao seu campo respectivo na strcut. Caso um campo esteja vazio na linha original, a struct receberá o valor -1
+ * 
+ * @param linha_bruta A linha original que deverá ser armazenada na estrutura de dados escolhida e que se tornará um ITEM
+ * @return Retorna um ponteiro para uma struct ITEM 
+ */
+ITEM *item_criar_detran(const char linha_bruta[]);
 
 /**
  * @brief Apaga uma struct do tipo ITEM da memória. Caso seja chamada, não é necessário liberar nenhum ponteiro manualmente.
