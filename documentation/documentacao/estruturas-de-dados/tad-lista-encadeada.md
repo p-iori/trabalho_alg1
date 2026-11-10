@@ -101,11 +101,10 @@ Cria e inicializa uma nova lista encadeada vazia.
 
 ```c
 LISTA_ENC *lista_enc_criar(void);
-
 ```
 
 * **Retorno:** Ponteiro para a instância de `LISTA_ENC` criada ou `NULL` em caso de falha de alocação de memória.
-* **Complexidade:** $O(1)$ tempo / $O(1)$ espaço.
+* **Complexidade:** O(1) tempo / O(1) espaço.
 
 #### `lista_enc_inserir`
 
@@ -113,14 +112,13 @@ Insere um elemento no final da lista encadeada. O tipo do ponteiro de entrada é
 
 ```c
 bool lista_enc_inserir(void *lista_ptr, ITEM *item);
-
 ```
 
 * **Parâmetros:**
   * `lista_ptr`: Ponteiro para a estrutura `LISTA_ENC` (convertido internamente).
   * `item`: Ponteiro para o `ITEM` a ser inserido.
 * **Retorno:** `true` se inserido com sucesso; `false` se a lista/item for nulo ou falhar a alocação do nó.
-* **Complexidade:** $O(1)$ tempo / $O(1)$ espaço.
+* **Complexidade:** O(1) tempo / O(1) espaço.
 * **Comportamento:** Atualiza o ponteiro `fim` para o novo nó em tempo constante, sem necessidade de percorrer a lista.
 
 #### `lista_enc_apagar`
@@ -129,13 +127,12 @@ Desaloca toda a memória alocada pela lista e pelos seus nós. Opcionalmente, li
 
 ```c
 void lista_enc_apagar(LISTA_ENC **lista, bool apagar_itens);
-
 ```
 
 * **Parâmetros:**
   * `lista`: Endereço do ponteiro para a lista (`LISTA_ENC **`). É definido como `NULL` ao final do processo.
   * `apagar_itens`: Se `true`, chama a função `item_apagar()` para cada nó. Se `false`, desaloca apenas a estrutura da lista e os nós.
-* **Complexidade:** $O(N)$ tempo / $O(1)$ espaço adicional, onde $N$ é a quantidade de elementos armazenados.
+* **Complexidade:** O(N) tempo / O(1) espaço adicional, onde N é a quantidade de elementos armazenados.
 
 #### `lista_enc_tamanho`
 
@@ -143,13 +140,12 @@ Retorna a quantidade total de elementos atualmente armazenados na lista.
 
 ```c
 int lista_enc_tamanho(const LISTA_ENC *lista);
-
 ```
 
 * **Parâmetros:**
   * `lista`: Ponteiro de leitura para a lista.
 * **Retorno:** O tamanho inteiro atual da lista (ou `0` se a lista for nula).
-* **Complexidade:** $O(1)$ tempo / $O(1)$ espaço.
+* **Complexidade:** O(1) tempo / O(1) espaço.
 
 #### `lista_enc_percorrer`
 
@@ -161,14 +157,13 @@ void lista_enc_percorrer(
     void (*visitar)(ITEM *item, void *contexto), 
     void *contexto
 );
-
 ```
 
 * **Parâmetros:**
   * `lista`: Ponteiro para a lista encadeada.
   * `visitar`: Função de callback acionada para cada nó.
   * `contexto`: Ponteiro opcional com dados auxiliares repassados ao callback (ex: contadores, filtros, ponteiro de saída).
-* **Complexidade:** $O(N)$ tempo / $O(1)$ espaço adicional.
+* **Complexidade:** O(N) tempo / O(1) espaço adicional.
 
 ### Análise de Complexidade Assintótica
 

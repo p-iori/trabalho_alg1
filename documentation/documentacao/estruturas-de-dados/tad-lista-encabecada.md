@@ -179,7 +179,6 @@ void lista_cabeca_percorrer(
     void (*visitar)(ITEM *item, void *contexto), 
     void *contexto
 );
-
 ```
 
 * **Parâmetros:**
@@ -190,7 +189,7 @@ void lista_cabeca_percorrer(
 
 ### Análise de Complexidade Assintótica
 
-<table data-header-hidden><thead><tr><th width="211"></th><th></th><th></th><th></th></tr></thead><tbody><tr><td><strong>Operação</strong></td><td><strong>Complexidade Temporal</strong></td><td><strong>Complexidade Espacial</strong></td><td><strong>Observação</strong></td></tr><tr><td><strong>Criação (<code>lista_cabeca_criar</code>)</strong></td><td><span class="math">O(1)</span><br></td><td><span class="math">O(1)</span></td><td>Aloca descritor e o nó sentinela inicial.</td></tr><tr><td><strong>Inserção (<code>lista_cabeca_inserir</code>)</strong></td><td><span class="math">O(1)</span></td><td><span class="math">O(1)</span></td><td>Sem ramificação condicional para lista vazia.</td></tr><tr><td><strong>Verificação de Vazia (<code>lista_cabeca_vazia</code>)</strong></td><td><span class="math">O(1)</span></td><td><span class="math">O(1)</span></td><td>Consulta direta a <code>tamanho</code>.</td></tr><tr><td><strong>Tamanho (<code>lista_cabeca_tamanho</code>)</strong></td><td><span class="math">O(1)</span></td><td><span class="math">O(1)</span></td><td>Retorno do contador mantido no descritor.</td></tr><tr><td><strong>Percurso (<code>lista_cabeca_percorrer</code>)</strong></td><td><span class="math">O(N)</span></td><td><span class="math">O(1)</span></td><td>Pula o nó cabeça e percorre $N$ nós reais.</td></tr><tr><td><strong>Destruição (<code>lista_cabeca_apagar</code>)</strong></td><td><span class="math">O(N)</span></td><td><span class="math">O(1)</span></td><td>Desaloca o nó cabeça + N nós de dados.</td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="211"></th><th></th><th></th><th></th></tr></thead><tbody><tr><td><strong>Operação</strong></td><td><strong>Complexidade Temporal</strong></td><td><strong>Complexidade Espacial</strong></td><td><strong>Observação</strong></td></tr><tr><td><strong>Criação (<code>lista_cabeca_criar</code>)</strong></td><td><span class="math">O(1)</span><br></td><td><span class="math">O(1)</span></td><td>Aloca descritor e o nó sentinela inicial.</td></tr><tr><td><strong>Inserção (<code>lista_cabeca_inserir</code>)</strong></td><td><span class="math">O(1)</span></td><td><span class="math">O(1)</span></td><td>Sem ramificação condicional para lista vazia.</td></tr><tr><td><strong>Verificação de Vazia (<code>lista_cabeca_vazia</code>)</strong></td><td><span class="math">O(1)</span></td><td><span class="math">O(1)</span></td><td>Consulta direta a <code>tamanho</code>.</td></tr><tr><td><strong>Tamanho (<code>lista_cabeca_tamanho</code>)</strong></td><td><span class="math">O(1)</span></td><td><span class="math">O(1)</span></td><td>Retorno do contador mantido no descritor.</td></tr><tr><td><strong>Percurso (<code>lista_cabeca_percorrer</code>)</strong></td><td><span class="math">O(N)</span></td><td><span class="math">O(1)</span></td><td>Pula o nó cabeça e percorre N nós reais.</td></tr><tr><td><strong>Destruição (<code>lista_cabeca_apagar</code>)</strong></td><td><span class="math">O(N)</span></td><td><span class="math">O(1)</span></td><td>Desaloca o nó cabeça + N nós de dados.</td></tr></tbody></table>
 
 ### Exemplo Prático de Uso
 

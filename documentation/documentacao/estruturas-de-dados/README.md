@@ -4,6 +4,26 @@ description: >-
   usuário e que são independentes do dataset utilizado. As estruturas de dados
   que podem ser utilizadas são:
 icon: database
+layout:
+  width: default
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+  metadata:
+    visible: true
+  tags:
+    visible: true
+  actions:
+    visible: true
+  anchors:
+    visible: true
 ---
 
 # Estruturas de dados
@@ -33,14 +53,14 @@ As **listas generalizadas,** **listas cruzadas e listas ordenadas** possuem fun�
 
 ## Veja mais
 
-{% content-ref url="../../guides/custom-domains.md" %}
-[custom-domains.md](../../guides/custom-domains.md)
+{% content-ref url="../tad-item.md" %}
+[tad-item.md](../tad-item.md)
 {% endcontent-ref %}
 
-{% content-ref url="../../partes-1-e-2/permissions.md" %}
-[permissions.md](../../partes-1-e-2/permissions.md)
+{% content-ref url="../tad-consulta.md" %}
+[tad-consulta.md](../tad-consulta.md)
 {% endcontent-ref %}
 
-{% content-ref url="../../guides/automations.md" %}
-[automations.md](../../guides/automations.md)
+{% content-ref url="../tad-cli.md" %}
+[tad-cli.md](../tad-cli.md)
 {% endcontent-ref %}
